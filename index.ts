@@ -1,4 +1,4 @@
-import { Route, Router } from "./RouterMap";
+import { Route, Router } from "./Router/RouterMap";
 
 const server = Bun.serve({
   port: 3000,

@@ -1,23 +1,27 @@
-import { expect, jest, mock, test } from "bun:test";
-import { Router } from "../RouterMap";
+import { beforeAll, describe, expect, jest, test } from "bun:test";
+import { Router } from "../Router/RouterMap";
 
-test("Router", () => {
-  const router = new Router();
+describe("Router", () => {
+  let router: Router;
   const mockController = jest.fn(
     (req: Request) => new Response("Test", { status: 200 })
   );
 
+  beforeAll(() => (router = new Router()));
   const testRoute = { method: "TEST", path: "/ŧest" };
-  router.add(testRoute, mockController);
+  test("Not existing route", () => {
+    expect(
+      router.exec(
+        { method: "NOT TEST", path: "NOTPATH" },
+        new Request("https://test.test.notfound/")
+      )
+    ).toHaveProperty("status", 404);
+  });
 
-  expect(
-    router.exec(
-      { method: "NOT TEST", path: "NOTPATH" },
-      new Request("https://test.test.notfound/")
-    )
-  ).toHaveProperty("status", 404);
-
-  expect(
-    router.exec(testRoute, new Request("https://test.test.ok/"))
-  ).toHaveProperty("status", 200);
+  test("Health check route", () => {
+    router.add(testRoute, mockController);
+    expect(
+      router.exec(testRoute, new Request("https://test.test.ok/"))
+    ).toHaveProperty("status", 200);
+  });
 });
