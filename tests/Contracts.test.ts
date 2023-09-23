@@ -2,19 +2,19 @@ import { beforeEach, describe, expect, test } from "bun:test";
 import { Pessoa, validatePerson } from "../Contracts/UserContract";
 import ContractExpection from "../Contracts/ContractException";
 
-let user: Pessoa = {
-  apelido: "",
-  nome: "",
-  nascimento: "",
-  stack: [],
-};
-beforeEach(() => {
-  user.apelido = "";
-  user.nome = "";
-  user.nascimento = "";
-  user.stack = [];
-});
 describe("UserContract validation", () => {
+  let user: Pessoa = {
+    apelido: "",
+    nome: "",
+    nascimento: "",
+    stack: [],
+  };
+  beforeEach(() => {
+    user.apelido = "";
+    user.nome = "";
+    user.nascimento = "";
+    user.stack = [];
+  });
   test("Maximum apelido size", () => {
     user.apelido = "t".repeat(Number(Bun.env.MAX_APELIDO_SIZE) + 1);
     expect(() => validatePerson(user)).toThrow(
