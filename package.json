@@ -7,5 +7,10 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.5.2"
   }
 }

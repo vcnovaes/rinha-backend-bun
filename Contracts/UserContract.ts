@@ -1,6 +1,7 @@
+import { Document } from "mongoose";
 import ContractExpection from "./ContractException";
 
-export interface Pessoa {
+export interface IPessoa {
   apelido: string;
   nome: string;
   nascimento: string;
@@ -28,7 +29,7 @@ function checkDate(dateStr: string) {
   }
   if (date.getMonth() == 2 && date.getDate() > 28) throw dataException;
 }
-export function validatePerson(pessoa: Pessoa) {
+export function validatePerson(pessoa: IPessoa) {
   checkMaximumFieldSize(
     "Apelido",
     pessoa.apelido,

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, test } from "bun:test";
-import { Pessoa, validatePerson } from "../Contracts/UserContract";
+import { IPessoa, validatePerson } from "../Contracts/UserContract";
 import ContractExpection from "../Contracts/ContractException";
 
 describe("UserContract validation", () => {
-  let user: Pessoa = {
+  let user: IPessoa = {
     apelido: "",
     nome: "",
     nascimento: "",

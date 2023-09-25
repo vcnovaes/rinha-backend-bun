@@ -1,4 +1,9 @@
-type Controller = (request: Request) => Response;
+import { MongoClient } from "mongodb";
+
+type Controller = (
+  request: Request,
+  client: MongoClient | null
+) => Response | Promise<Response>;
 export interface Route {
   method: string;
   path: string;
@@ -18,9 +23,9 @@ export class Router {
     return `${route.method}: ${route.path}`;
   }
 
-  public exec(route: Route, req: Request) {
+  public exec(route: Route, req: Request, client: MongoClient | null) {
     const controller = this._routerMap.get(this.routeKey(route));
     if (!controller) return new Response("", { status: 404 });
-    return controller(req);
+    return controller(req, client);
   }
 }
