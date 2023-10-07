@@ -40,4 +40,5 @@ export function validatePerson(pessoa: IPessoa) {
     checkMaximumFieldSize("Stack", stack, Number(Bun.env.MAX_STACK_ITEM_SIZE))
   );
   checkDate(pessoa.nascimento);
+  return pessoa;
 }

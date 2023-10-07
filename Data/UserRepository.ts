@@ -1,7 +1,4 @@
-import { Model } from "mongoose";
-import { IPessoaData } from "./UserModel";
 import { IPessoa } from "../Contracts";
-import { MongoClient } from "mongodb";
 import { DatabaseClient } from "../DB/DatabaseClient";
 
 export class UserRepository {
@@ -27,7 +24,6 @@ export class UserRepository {
 
   async searchUsersByTerm(searchTerm: string) {
     const result = await this.client.searchUsersByTerm(searchTerm);
-
-    return;
+    return result;
   }
 }

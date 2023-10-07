@@ -1,22 +1,26 @@
-import { MongoClient } from "mongodb";
 import { IPessoa } from "../Contracts";
 import { UserRepository } from "../Data/UserRepository";
 
-export function registerUser(user: IPessoa, client: MongoClient) {}
-
-export function retrieveUser(
-  user: IPessoa,
-  searchTerm: string,
-  client: MongoClient
-) {}
-
-export async function countTotalUsers(client: MongoClient) {
-  const rep = new UserRepository(client);
-
-  await rep.connect();
-  const allUsers = await rep.getAllUsers();
-  await rep.disconnect();
-  return allUsers.length;
+export async function registerUser(user: IPessoa, repository: UserRepository) {
+  try {
+    await repository.createUser(user);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-export function retriveUserById(id: string, client: MongoClient) {}
+export async function retrieveUser(
+  searchTerm: string,
+  repository: UserRepository
+) {
+  try {
+    return await repository.searchUsersByTerm(searchTerm);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function countTotalUsers(repository: UserRepository) {
+  return await repository.getTotalOfUsers();
+}
